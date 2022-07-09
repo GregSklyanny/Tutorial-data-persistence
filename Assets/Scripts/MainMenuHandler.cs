@@ -14,7 +14,6 @@ public class MainMenuHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DataBase.Instance.LoadData();
         inputName.text = DataBase.Instance.userName;
 
     }
@@ -28,7 +27,7 @@ public class MainMenuHandler : MonoBehaviour
     public void StartGame()
     {
         DataBase.Instance.userName = inputName.text.ToString();
-        DataBase.Instance.SaveName();
+        
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
     public void Exit()

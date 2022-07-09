@@ -11,6 +11,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
     public Text NameText;
     public Text ScoreText;
+    public Text RecordText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -23,7 +24,9 @@ public class MainManager : MonoBehaviour
     void Start()
     {
         NameText.text = DataBase.Instance.userName;
-        
+        DataBase.Instance.LoadRecord();
+        RecordText.text = "Name: " + DataBase.Instance.recordName + " Score: " + DataBase.Instance.score;
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -57,9 +60,15 @@ public class MainManager : MonoBehaviour
         }
         else if (m_GameOver)
         {
+            if(DataBase.Instance.score < m_Points)
+            {
+                DataBase.Instance.score = m_Points;
+                DataBase.Instance.recordName = DataBase.Instance.userName;
+                DataBase.Instance.SaveRecord();
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(0);
             }
         }
     }

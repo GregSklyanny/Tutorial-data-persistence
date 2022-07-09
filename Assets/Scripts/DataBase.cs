@@ -7,6 +7,8 @@ public class DataBase : MonoBehaviour
 {
     public static DataBase Instance;
     public string userName;
+    public string recordName;
+    public int score;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,13 +23,15 @@ public class DataBase : MonoBehaviour
     [System.Serializable]
     class JSONDataSet
     {
-        public string userName; 
+        public string recordName;
+        public int score;
     }
 
-    public void SaveName()
+    public void SaveRecord()
     {
         JSONDataSet data = new JSONDataSet();
-        data.userName = userName;
+        data.recordName = userName;
+        data.score = score;
         string json = JsonUtility.ToJson(data);
 
         
@@ -35,7 +39,7 @@ public class DataBase : MonoBehaviour
 
     }
 
-    public void LoadData()
+    public void LoadRecord()
     {
         Debug.Log(Application.persistentDataPath);
         string path = Application.persistentDataPath + "/savefile.json";
@@ -44,7 +48,8 @@ public class DataBase : MonoBehaviour
             string json = File.ReadAllText(path);
             JSONDataSet data = JsonUtility.FromJson<JSONDataSet>(json);
 
-            userName = data.userName;
+            recordName = data.recordName;
+            score = data.score;
         }
 
 
