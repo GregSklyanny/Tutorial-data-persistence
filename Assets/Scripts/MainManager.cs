@@ -39,6 +39,7 @@ public class MainManager : MonoBehaviour
                 var brick = Instantiate(BrickPrefab, position, Quaternion.identity);
                 brick.PointValue = pointCountArray[i];
                 brick.onDestroyed.AddListener(AddPoint);
+                
             }
         }
     }
